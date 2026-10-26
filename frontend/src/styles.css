@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --page: #f3f5fa;
+  --page-glow: rgb(219 234 254 / 55%);
+  --page-glow-two: rgb(224 231 255 / 35%);
+  --page-text: #0f172a;
+}
+
+.dark {
+  color-scheme: dark;
+  --page: #070b14;
+  --page-glow: rgb(30 64 175 / 18%);
+  --page-glow-two: rgb(76 29 149 / 14%);
+  --page-text: #e2e8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--page);
+  background-image:
+    radial-gradient(60rem 34rem at 8% -8%, var(--page-glow), transparent 65%),
+    radial-gradient(48rem 28rem at 104% 2%, var(--page-glow-two), transparent 60%);
+  background-attachment: fixed;
+  color: var(--page-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: #bfdbfe;
+  color: #172554;
+}
+
+.dark ::selection {
+  background: #1e3a8a;
+  color: #eff6ff;
+}
+
+/* Keep the native focus ring obvious on every interactive element. */
+:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline-color: #93c5fd;
+}
+
+/* Leaflet controls and attribution should inherit the page's font and keep
+   sufficient contrast on both basemaps. */
+.leaflet-container {
+  font-family: inherit;
+  background: #dbe3ee;
+}
+
+.leaflet-control-attribution {
+  background: rgb(255 255 255 / 94%) !important;
+  color: #334155 !important;
+  font-size: 11px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #1e40af !important;
+  text-decoration: underline;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+.leaflet-tooltip {
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.dark .leaflet-container {
+  background: #0b1220;
+}
+
+/* The public OSM raster tiles have no dark style. Inverting only the tile pane
+   keeps routes, markers, and tooltips untouched and readable in dark mode. */
+.dark .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.82) contrast(0.92) saturate(0.75);
+}
+
+.dark .leaflet-control-attribution {
+  background: rgb(2 6 23 / 88%) !important;
+  color: #cbd5e1 !important;
+}
+
+.dark .leaflet-control-attribution a {
+  color: #93c5fd !important;
+}
+
+.dark .leaflet-bar a,
+.dark .leaflet-bar a:hover {
+  color: #e2e8f0;
+  background-color: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.dark .leaflet-tooltip {
+  background: #0f172a;
+  border-color: #475569;
+  color: #e2e8f0;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 35%);
+}
+
+.dark .leaflet-tooltip-top:before {
+  border-top-color: #475569;
+}
+
+.dark .leaflet-tooltip-bottom:before {
+  border-bottom-color: #475569;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8;
+}
+
+dialog::backdrop {
+  background: rgb(15 23 42 / 58%);
+  backdrop-filter: blur(3px);
+}
+
+/* Animated route: a short bright dash travels along the preferred path. */
+@keyframes route-flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+.route-flow {
+  stroke-dasharray: 2 9;
+  animation: route-flow 1.15s linear infinite;
+}
+
+.route-active {
+  filter: drop-shadow(0 0 5px rgb(37 99 235 / 65%));
+}
+
+.dark .route-active {
+  filter: drop-shadow(0 0 6px rgb(147 197 253 / 75%));
+}
+
+@keyframes route-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgb(37 99 235 / 45%),
+      0 0 0 6px rgb(37 99 235 / 18%);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px rgb(37 99 235 / 0%),
+      0 0 0 14px rgb(37 99 235 / 0%);
+  }
+}
+
+.route-dot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  border: 3px solid #ffffff;
+  background: #1d4ed8;
+  animation: route-pulse 1.5s ease-in-out infinite;
+}
+
+.dark .route-dot {
+  border-color: #e2e8f0;
+  background: #60a5fa;
+}
+
+/* Subtle scrollbars in both themes. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #94a3b8 transparent;
+}
+
+.dark * {
+  scrollbar-color: #475569 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,11 @@
+lat,lon,curb_ramp,measured_slope_pct,clear_width_m,obstacle,date,photo_ref,notes
+44.946098,-92.984542,yes,2.0,1.5,,2026-10-24,sample/woodbury-01.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.905915,-92.959914,damaged,3.5,1.1,,2026-10-24,sample/woodbury-02.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.906421,-92.958668,no,4.0,0.9,,2026-10-24,sample/woodbury-03.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.904807,-92.957763,,9.0,1.2,,2026-10-24,sample/woodbury-04.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.906872,-92.957568,,15.5,1.0,,2026-10-24,sample/woodbury-05.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.906611,-92.956038,,10.3,0.95,,2026-10-24,sample/woodbury-06.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.930021,-92.983006,,2.5,1.4,,2026-10-24,sample/woodbury-07.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.941051,-92.944078,,4.0,1.1,,2026-10-24,sample/woodbury-08.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.940965,-92.944021,,5.0,1.15,,2026-10-24,sample/woodbury-09.jpg,SAMPLE DATA - not a finding; replace with your own audit
+44.944221,-92.945311,,6.5,1.0,,2026-10-24,sample/woodbury-10.jpg,SAMPLE DATA - not a finding; replace with your own audit

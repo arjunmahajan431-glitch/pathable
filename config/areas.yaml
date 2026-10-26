@@ -1,0 +1,91 @@
+# PathAble configuration.
+#
+# Two whole-city mapping areas are supported: Woodbury and Saint Paul,
+# Minnesota. Each area has a public landmark as its center and a GeoJSON city
+# boundary in config/boundaries/. The boundary is the real routing and report
+# limit; the radius is a generous bounding circle used for address search and
+# as a fallback if a boundary file is unavailable. The 12,000 m technical cap
+# keeps a bad configuration from requesting an unbounded graph.
+#
+# PRIVACY: use a public landmark or neighborhood, never a school or home address.
+
+active_area: woodbury-mn
+
+max_radius_m: 12000   # technical guardrail for whole-city areas
+
+areas:
+  - id: woodbury-mn
+    name: "Woodbury, Minnesota"
+    center:
+      lat: 44.918888
+      lon: -92.9366384
+    radius_m: 8800
+    is_placeholder: false
+    boundary: config/boundaries/woodbury-mn.geojson
+    sample_graph: data/fixtures/woodbury_city_2026-10-25.graphml.gz
+    sample_elevation: data/fixtures/woodbury_city_elevation_2026-10-25.json
+    note: >-
+      Whole-city mapping area centered on Woodbury City Hall and Central Park,
+      both public landmarks. The city boundary comes from OpenStreetMap. This is
+      not a school, home, or other private location.
+
+  - id: saint-paul-mn
+    name: "Saint Paul, Minnesota"
+    center:
+      lat: 44.9442823
+      lon: -93.0939523
+    radius_m: 10400
+    is_placeholder: false
+    boundary: config/boundaries/saint-paul-mn.geojson
+    sample_graph: data/fixtures/saint_paul_city_2026-10-25.graphml.gz
+    sample_elevation: data/fixtures/saint_paul_city_elevation_2026-10-25.json
+    note: >-
+      Whole-city mapping area centered on Saint Paul City Hall and the downtown
+      and Capitol district, public landmarks. The city boundary comes from
+      OpenStreetMap. This is not a school, home, or other private location.
+
+data:
+  # Relative paths are resolved from the project root (the folder containing
+  # this config file's parent).
+  cache_dir: data/cache
+  sample_graph: data/fixtures/woodbury_city_2026-10-25.graphml.gz
+  sample_elevation: data/fixtures/woodbury_city_elevation_2026-10-25.json
+  sample_graph_date: "2026-10-25"
+  sample_graph_source: "OpenStreetMap via Overpass API (walk network, simplified)"
+  sample_elevation_source: "OpenTopoData public API, SRTM 30 m (NASA/USGS), sampled at graph nodes"
+
+routing:
+  max_snap_m: 300.0          # refuse to route if a point is farther than this from the network
+  snap_warning_m: 50.0       # warn when the nearest node is farther than this
+  max_alternatives: 3        # sensitivity variants recomputed per request
+
+reports:
+  influence_radius_m: 40.0   # a report affects edges whose midpoint is within this distance
+  expiry_days: 180           # reports stop influencing routing after this unless re-confirmed
+  rate_limit_per_hour: 5     # max new reports per client hash per hour
+  max_bbox_span_deg: 0.05    # reject report map queries larger than roughly 5 km on a side
+  max_description_chars: 500
+
+geocoding:
+  enabled: true
+  # The frontend asks our backend, which caches results and sets a real
+  # User-Agent as the Nominatim usage policy requires. Do not add an email or
+  # other personal information here.
+  user_agent: "PathAble/0.1 (Congressional App Challenge student project; https://www.congressionalappchallenge.us)"
+  min_interval_s: 1.0
+  cache_size: 200
+  timeout_s: 15.0
+  endpoint: "https://nominatim.openstreetmap.org/search"
+
+elevation:
+  provider: opentopodata_srtm30m
+  endpoint: "https://api.opentopodata.org/v1/srtm30m"
+  batch_size: 100
+  min_interval_s: 1.0
+  timeout_s: 30.0
+  user_agent: "PathAble/0.1 (Congressional App Challenge student project)"
+
+server:
+  allowed_origins:
+    - "http://localhost:5173"
+    - "http://127.0.0.1:5173"
